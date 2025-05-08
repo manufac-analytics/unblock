@@ -5,6 +5,11 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
+const dotenv = require("dotenv");
+const webpack = require("webpack");
+
+// Load environment variables from .env file
+dotenv.config();
 
 module.exports = (env) => {
   let plugins = [
@@ -97,6 +102,11 @@ module.exports = (env) => {
       path: path.resolve(__dirname, "dist/bundle"),
       filename: "bundle.js",
     },
-    plugins,
+    plugins: [
+      ...plugins,
+      new webpack.DefinePlugin({
+        "process.env.PRIVY_API_KEY": JSON.stringify(process.env.PRIVY_API_KEY),
+      }),
+    ],
   };
 };

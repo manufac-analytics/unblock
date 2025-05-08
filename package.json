@@ -30,6 +30,8 @@
     "@mantine/hooks": "^7.17.5",
     "@storybook/test": "^8.6.12",
     "@tabler/icons-react": "^3.31.0",
+    "@tanstack/react-query": "^5.75.5",
+    "dotenv": "^16.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.5.3"
