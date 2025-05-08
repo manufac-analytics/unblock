@@ -106,6 +106,8 @@ module.exports = (env) => {
       ...plugins,
       new webpack.DefinePlugin({
         "process.env.PRIVY_API_KEY": JSON.stringify(process.env.PRIVY_API_KEY),
+        "process.env.ETHEREUM_URL": JSON.stringify(process.env.ETHEREUM_URL),
+        "process.env.BASE_URL": JSON.stringify(process.env.BASE_URL),
       }),
     ],
   };
