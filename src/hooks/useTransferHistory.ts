@@ -1,19 +1,13 @@
+import { AlchemyInstance } from "./utils";
 import { useQuery } from "@tanstack/react-query";
-import { Alchemy, Network, AssetTransfersCategory } from "alchemy-sdk";
-import type { AssetTransfersResponse, AssetTransfersResult } from "alchemy-sdk";
-
-const AlchemySettings = {
-  apiKey: process.env.ALCHEMY_API_KEY,
-  network: Network.ETH_MAINNET,
-};
-
-const AlchemyInstance = new Alchemy(AlchemySettings);
+import { AssetTransfersCategory } from "alchemy-sdk";
+import type { AssetTransfersResponse } from "alchemy-sdk";
 
 export function useTransferHistory(address: string) {
   return useQuery<AssetTransfersResponse>({
     queryKey: ["transferHistory", address],
     queryFn: async (): Promise<AssetTransfersResponse> => {
-      const result = await AlchemyInstance.core.getAssetTransfers({
+      const transfersData = await AlchemyInstance.core.getAssetTransfers({
         fromAddress: address,
         category: [
           AssetTransfersCategory.EXTERNAL,
@@ -25,8 +19,7 @@ export function useTransferHistory(address: string) {
         ],
       });
 
-      // Explicit return type is already declared, so this is safe
-      return result;
+      return transfersData;
     },
     enabled: typeof address === "string" && address.trim().length > 0,
     refetchOnWindowFocus: false,
