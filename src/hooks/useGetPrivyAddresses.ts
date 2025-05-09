@@ -38,7 +38,7 @@ export function useGetPrivyAddresses(): UseQueryResult<PrivyResponse> {
         throw new Error("Failed to fetch Privy data");
       }
 
-      const data: PrivyResponse = await response.json() as PrivyResponse;
+      const data: PrivyResponse = (await response.json()) as PrivyResponse;
       return data;
     },
     refetchInterval: PollingInterval,
