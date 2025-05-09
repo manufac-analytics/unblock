@@ -16,7 +16,6 @@ interface Wallet {
 interface PrivyResponse {
   wallets: Wallet[];
 }
-console.log("Privy API Key", process.env.PRIVY_API_KEY);
 
 //Ref:https://docs.privy.io/api-reference/introduction#examples
 export function useGetPrivyAddresses(): UseQueryResult<PrivyResponse> {

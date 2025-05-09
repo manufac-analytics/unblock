@@ -5,11 +5,10 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
-const dotenv = require("dotenv");
 const { DefinePlugin } = require("webpack");
 
 // Load environment variables from .env file
-dotenv.config();
+require("dotenv-safe").config();
 
 module.exports = (env) => {
   let plugins = [
