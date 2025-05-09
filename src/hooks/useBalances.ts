@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Alchemy, Network } from "alchemy-sdk";
 
-const AlchemySettings = {
+const AlchemyInstance = new Alchemy({
   apiKey: process.env.ALCHEMY_API_KEY,
   network: Network.ETH_MAINNET,
-};
-
-const AlchemyInstance = new Alchemy(AlchemySettings);
+});
 interface Balances {
   ethBalance: string;
   tokenBalances: {
