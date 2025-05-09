@@ -1,12 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Alchemy, Network, AssetTransfersCategory, AssetTransfersResponse } from 'alchemy-sdk';
-
-const AlchemySettings = {
-  apiKey: process.env.ALCHEMY_API_KEY,
-  network: Network.ETH_MAINNET,
-};
-
-const AlchemyInstance = new Alchemy(AlchemySettings);
+import { AssetTransfersCategory, AssetTransfersResponse } from 'alchemy-sdk';
+import { AlchemyInstance } from './utils';
 
 export function useTransferHistory(address: string) {
   return useQuery<AssetTransfersResponse>({
