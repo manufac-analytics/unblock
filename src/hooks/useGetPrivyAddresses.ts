@@ -1,4 +1,5 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import type { UseQueryResult } from "@tanstack/react-query";
 
 const PollingInterval = 5 * 60 * 1000;
 
@@ -25,7 +26,7 @@ export function useGetPrivyAddresses(): UseQueryResult<PrivyResponse> {
       const options: RequestInit = {
         method: "GET",
         headers: {
-          Authorization: `Basic ${btoa("cmaezmfbx028jjv0m9dkb7zl7" + ":" + process.env.PRIVY_API_KEY)}`, // TODO: read from env
+          Authorization: `Basic ${btoa(`cmaezmfbx028jjv0m9dkb7zl7:${process.env.PRIVY_API_KEY ?? ""}`)}`, // TODO: read from env
           "privy-app-id": "cmaezmfbx028jjv0m9dkb7zl7",
           "Content-Type": "application/json",
         },
@@ -37,8 +38,7 @@ export function useGetPrivyAddresses(): UseQueryResult<PrivyResponse> {
         throw new Error("Failed to fetch Privy data");
       }
 
-      const data: PrivyResponse = await response.json();
-
+      const data: PrivyResponse = (await response.json()) as PrivyResponse;
       return data;
     },
     refetchInterval: PollingInterval,
