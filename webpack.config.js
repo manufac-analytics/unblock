@@ -105,6 +105,7 @@ module.exports = (env) => {
       ...plugins,
       new DefinePlugin({
         "process.env.PRIVY_API_KEY": JSON.stringify(process.env.PRIVY_API_KEY),
+        "process.env.ALCHEMY_API_KEY": JSON.stringify(process.env.ALCHEMY_API_KEY),
       }),
     ],
   };
