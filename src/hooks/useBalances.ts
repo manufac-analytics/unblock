@@ -38,7 +38,7 @@ export function useBalances(address: string) {
             symbol: metadata.symbol,
             decimals: metadata.decimals,
           };
-        }),
+        })
       );
 
       return {
@@ -46,5 +46,7 @@ export function useBalances(address: string) {
         tokensWithMetadata,
       };
     },
+    enabled: typeof address === "string" && address.trim().length > 0,
+    refetchOnWindowFocus: false,
   });
 }
