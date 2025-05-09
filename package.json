@@ -31,7 +31,6 @@
     "@storybook/test": "^8.6.12",
     "@tabler/icons-react": "^3.31.0",
     "@tanstack/react-query": "^5.75.5",
-    "dotenv": "^16.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.5.3"
@@ -58,6 +57,7 @@
     "babel-loader": "^10.0.0",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
+    "dotenv-safe": "^9.1.0",
     "eslint": "^9.25.1",
     "html-webpack-plugin": "^5.6.3",
     "husky": "^9.1.7",
@@ -83,7 +83,8 @@
     "webpack": "^5.99.7",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1",
-    "workbox-webpack-plugin": "^7.3.0"
+    "workbox-webpack-plugin": "^7.3.0",
+    "dotenv": "^16.5.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "engines": {
