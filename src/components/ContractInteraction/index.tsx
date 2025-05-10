@@ -44,13 +44,18 @@ export function ContractInteraction(): JSX.Element {
           return info.getValue();
         },
       }),
-      columnHelper.accessor((row) => row.rawContract?.address, {
-        id: "rawContractAddress",
-        header: "Raw Contract",
-        cell: (info) => {
-          return info.getValue();
+      columnHelper.accessor(
+        (row) => {
+          return row.rawContract.address;
         },
-      }),
+        {
+          id: "rawContractAddress",
+          header: "Raw Contract",
+          cell: (info) => {
+            return info.getValue();
+          },
+        },
+      ),
     ];
   }, []);
 
