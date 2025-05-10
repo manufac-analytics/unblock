@@ -1,7 +1,7 @@
 import { HistoricalTransfer } from "../../components/HistoricalTransfer";
-import { useTransferHistory } from "../../hooks/useTransferHistory";
 import { TokenBalance } from "../../components/TokenBalance";
 import { useBalances } from "../../hooks/useBalances";
+import { useTransferHistory } from "../../hooks/useTransferHistory";
 import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
