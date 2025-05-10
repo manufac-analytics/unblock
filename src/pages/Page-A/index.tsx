@@ -1,10 +1,11 @@
 import { HistoricalTransfer } from "../../components/HistoricalTransfer";
 import { useTransferHistory } from "../../hooks/useTransferHistory";
 import { Input, Stack, Button, Container, Group } from "@mantine/core";
+import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
 
 export function PageA() {
-  const [inputAddress, setInputAddress] = useState("");
+  const [inputAddress, setInputAddress] = useInputState("");
   const [walletAddress, setWalletAddress] = useState("");
   const { data, isLoading } = useTransferHistory(walletAddress);
 
@@ -19,15 +20,13 @@ export function PageA() {
           <Input
             placeholder="Enter wallet address"
             value={inputAddress}
-            onChange={(e) => {
-              setInputAddress(e.currentTarget.value);
-            }}
+            onChange={setInputAddress}
           />
-          <Button onClick={handleFetchTransfers} disabled={isLoading} loading={isLoading}>
+          <Button onClick={handleFetchTransfers} loading={isLoading}>
             Get Transfer History
           </Button>
         </Group>
-        {isLoading === false && data !== undefined && <HistoricalTransfer transfers={data} />}
+        {isLoading === false && data !== undefined ? <HistoricalTransfer transfers={data} /> : null}
       </Stack>
     </Container>
   );
