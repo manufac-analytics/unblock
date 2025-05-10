@@ -4,10 +4,10 @@ import {
   flexRender,
   getCoreRowModel,
   createColumnHelper,
-  PaginationState,
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import type { PaginationState } from "@tanstack/react-table";
 import type { AssetTransfersResult } from "alchemy-sdk";
 import type { JSX } from "react";
 

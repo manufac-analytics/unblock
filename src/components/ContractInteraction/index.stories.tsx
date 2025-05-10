@@ -1,6 +1,7 @@
-import { AssetTransfersCategory, AssetTransfersResult } from "alchemy-sdk";
 import { ContractInteraction } from ".";
+import { AssetTransfersCategory } from "alchemy-sdk";
 import type { Meta, StoryObj } from "@storybook/react";
+import type { AssetTransfersResult } from "alchemy-sdk";
 
 const DummyInteraction: AssetTransfersResult[] = [
   {
