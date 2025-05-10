@@ -1,28 +1,14 @@
-import { Group, Pagination, Stack, Table, Text } from "@mantine/core";
+import { Group, Stack, Table } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
   getCoreRowModel,
   createColumnHelper,
-  getPaginationRowModel,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useMemo, type JSX } from "react";
 import type { Balances } from "../../hooks/useBalances";
-import type { PaginationState } from "@tanstack/react-table";
-import type { JSX } from "react";
 
-export function TokenBalance({
-  ethBalance,
-  tokenBalances,
-}: {
-  ethBalance: string;
-  tokenBalances: Balances["tokenBalances"];
-}): JSX.Element {
-  const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-
+export function TokenBalance(): JSX.Element {
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<Balances["tokenBalances"][0]>();
     return [
@@ -72,23 +58,15 @@ export function TokenBalance({
       ),
     ];
   }, []);
+
   const table = useReactTable({
-    data: tokenBalances,
+    data: [],
     columns,
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
-    <Stack w={1500}>
-      <Group>
-        <Text fw={700}>ETH Balance:</Text>
-        <Text>{ethBalance}</Text>
-      </Group>
+    <Stack>
       <Table highlightOnHover withTableBorder withColumnBorders>
         <Table.Thead>
           {table.getHeaderGroups().map((headerGroup) => {
@@ -96,7 +74,7 @@ export function TokenBalance({
               <Table.Tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <Table.Th key={header.id}>
+                    <Table.Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
                       <Group gap="xs">
                         {flexRender(header.column.columnDef.header, header.getContext())}
                       </Group>
@@ -107,33 +85,7 @@ export function TokenBalance({
             );
           })}
         </Table.Thead>
-        <Table.Tbody>
-          {table.getPaginationRowModel().rows.map((row) => {
-            return (
-              <Table.Tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <Table.Td key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Table.Td>
-                  );
-                })}
-              </Table.Tr>
-            );
-          })}
-        </Table.Tbody>
       </Table>
-      <Group justify="flex-end" mt="md">
-        <Pagination
-          total={Math.ceil(tokenBalances.length / pagination.pageSize)}
-          value={pagination.pageIndex + 1}
-          onChange={(page) => {
-            setPagination((prev) => {
-              return { ...prev, pageIndex: page - 1 };
-            });
-          }}
-        />
-      </Group>
     </Stack>
   );
 }
