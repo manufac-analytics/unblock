@@ -1,9 +1,10 @@
-import { Group, Stack, Table, Text, Pagination } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Text } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
   getCoreRowModel,
   createColumnHelper,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import type { Balances } from "../../hooks/useBalances";
@@ -21,11 +22,6 @@ export function TokenBalance({
     pageIndex: 0,
     pageSize: 10,
   });
-
-  const paginatedData = useMemo(() => {
-    const startIndex = pagination.pageIndex * pagination.pageSize;
-    return tokenBalances.slice(startIndex, startIndex + pagination.pageSize);
-  }, [pagination, tokenBalances]);
 
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<Balances["tokenBalances"][0]>();
@@ -76,11 +72,15 @@ export function TokenBalance({
       ),
     ];
   }, []);
-
   const table = useReactTable({
-    data: paginatedData,
+    data: tokenBalances,
     columns,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -108,7 +108,7 @@ export function TokenBalance({
           })}
         </Table.Thead>
         <Table.Tbody>
-          {table.getRowModel().rows.map((row) => {
+          {table.getPaginationRowModel().rows.map((row) => {
             return (
               <Table.Tr key={row.id}>
                 {row.getVisibleCells().map((cell) => {
@@ -123,7 +123,7 @@ export function TokenBalance({
           })}
         </Table.Tbody>
       </Table>
-      <Group justify="flex-end">
+      <Group justify="flex-end" mt="md">
         <Pagination
           total={Math.ceil(tokenBalances.length / pagination.pageSize)}
           value={pagination.pageIndex + 1}
