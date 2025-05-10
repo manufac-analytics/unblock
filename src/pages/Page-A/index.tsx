@@ -1,5 +1,7 @@
 import { HistoricalTransfer } from "../../components/HistoricalTransfer";
 import { useTransferHistory } from "../../hooks/useTransferHistory";
+import { TokenBalance } from "../../components/TokenBalance";
+import { useBalances } from "../../hooks/useBalances";
 import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
@@ -7,9 +9,11 @@ import { useState } from "react";
 export function PageA() {
   const [inputAddress, setInputAddress] = useInputState("");
   const [walletAddress, setWalletAddress] = useState("");
-  const { data, isLoading } = useTransferHistory(walletAddress);
 
-  const handleFetchTransfers = () => {
+  const { data: transferData, isLoading: isLoadingTransfers } = useTransferHistory(walletAddress);
+  const { data: balanceData, isLoading: isLoadingBalances } = useBalances(walletAddress);
+
+  const handleFetch = () => {
     setWalletAddress(inputAddress.trim());
   };
 
@@ -22,11 +26,20 @@ export function PageA() {
             value={inputAddress}
             onChange={setInputAddress}
           />
-          <Button onClick={handleFetchTransfers} loading={isLoading}>
-            Get Transfer History
+          <Button onClick={handleFetch} loading={isLoadingTransfers || isLoadingBalances}>
+            Fetch Data
           </Button>
         </Group>
-        {isLoading === false && data !== undefined ? <HistoricalTransfer transfers={data} /> : null}
+
+        {isLoadingBalances === false && balanceData !== undefined ? (
+          <TokenBalance
+            ethBalance={balanceData.ethBalance}
+            tokenBalances={balanceData.tokenBalances}
+          />
+        ) : null}
+        {isLoadingTransfers === false && transferData !== undefined ? (
+          <HistoricalTransfer transfers={transferData.transfers} />
+        ) : null}
       </Stack>
     </Container>
   );

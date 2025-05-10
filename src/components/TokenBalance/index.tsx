@@ -1,4 +1,4 @@
-import { Group, Pagination, Stack, Table, Text } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Text, Title } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
@@ -85,6 +85,8 @@ export function TokenBalance({
 
   return (
     <Stack w={1500}>
+      <Title order={3}>Token Balances</Title>
+
       <Group>
         <Text fw={700}>ETH Balance:</Text>
         <Text>{ethBalance}</Text>
@@ -107,21 +109,27 @@ export function TokenBalance({
             );
           })}
         </Table.Thead>
-        <Table.Tbody>
-          {table.getPaginationRowModel().rows.map((row) => {
-            return (
-              <Table.Tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <Table.Td key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Table.Td>
-                  );
-                })}
-              </Table.Tr>
-            );
-          })}
-        </Table.Tbody>
+        {tokenBalances.length > 0 ? (
+          <Table.Tbody>
+            {table.getPaginationRowModel().rows.map((row) => {
+              return (
+                <Table.Tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <Table.Td key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Table.Td>
+                    );
+                  })}
+                </Table.Tr>
+              );
+            })}
+          </Table.Tbody>
+        ) : (
+          <Text mt="md" c="dimmed">
+            No data available
+          </Text>
+        )}
       </Table>
       <Group justify="flex-end" mt="md">
         <Pagination
