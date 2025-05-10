@@ -1,15 +1,26 @@
-import { Group, Stack, Table } from "@mantine/core";
+import { Group, Pagination, Stack, Table } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
   getCoreRowModel,
   createColumnHelper,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { AssetTransfersResult } from "alchemy-sdk";
 import type { JSX } from "react";
+import type { PaginationState } from "@tanstack/react-table";
 
-export function HistoricalTransfer(): JSX.Element {
+export function HistoricalTransfer({
+  transfers,
+}: {
+  transfers: AssetTransfersResult[];
+}): JSX.Element {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<AssetTransfersResult>();
     return [
@@ -53,9 +64,14 @@ export function HistoricalTransfer(): JSX.Element {
   }, []);
 
   const table = useReactTable({
-    data: [],
+    data: transfers,
     columns,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -78,7 +94,29 @@ export function HistoricalTransfer(): JSX.Element {
             );
           })}
         </Table.Thead>
+        <Table.Tbody>
+          {table.getPaginationRowModel().rows.map((row) => (
+            <Table.Tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <Table.Td key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </Table.Td>
+              ))}
+            </Table.Tr>
+          ))}
+        </Table.Tbody>
       </Table>
+      <Group justify="flex-end" mt="md">
+        <Pagination
+          total={Math.ceil(transfers.length / pagination.pageSize)}
+          value={pagination.pageIndex + 1}
+          onChange={(page) => {
+            setPagination((prev) => {
+              return { ...prev, pageIndex: page - 1 };
+            });
+          }}
+        />
+      </Group>
     </Stack>
   );
 }
