@@ -2,7 +2,7 @@ import { AlchemyInstance } from "./utils";
 import { useQuery } from "@tanstack/react-query";
 import type { TokenBalance, TokenMetadataResponse } from "alchemy-sdk";
 
-interface Balances {
+export interface Balances {
   ethBalance: string;
   tokenBalances: { tokenBalance: TokenBalance; metadata: TokenMetadataResponse }[];
 }
