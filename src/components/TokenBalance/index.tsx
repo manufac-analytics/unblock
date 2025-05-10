@@ -25,6 +25,17 @@ export function TokenBalance(): JSX.Element {
       ),
       columnHelper.accessor(
         (datum) => {
+          return datum.tokenBalance.contractAddress;
+        },
+        {
+          header: "Contract Address",
+          cell: (info) => {
+            return info.getValue();
+          },
+        },
+      ),
+      columnHelper.accessor(
+        (datum) => {
           return datum.metadata.symbol;
         },
         {
