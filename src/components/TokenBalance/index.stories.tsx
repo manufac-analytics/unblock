@@ -2,7 +2,7 @@ import { TokenBalance } from ".";
 import type { Balances } from "../../hooks/useBalances";
 import type { Meta, StoryObj } from "@storybook/react";
 
-const dummyTokenBalances: Balances["tokenBalances"] = [
+const DummyTokenBalances: Balances["tokenBalances"] = [
   {
     tokenBalance: {
       contractAddress: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
@@ -36,7 +36,7 @@ export default {
   component: TokenBalance,
   args: {
     ethBalance: "12.3456",
-    tokenBalances: dummyTokenBalances,
+    tokenBalances: DummyTokenBalances,
   },
 } as Meta<typeof TokenBalance>;
 
