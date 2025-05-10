@@ -1,12 +1,12 @@
-import { useContractInteractions } from "../../hooks/useContractInteractions";
+import { ContractInteraction } from "../../components/ContractInteraction";
 import { HistoricalTransfer } from "../../components/HistoricalTransfer";
 import { TokenBalance } from "../../components/TokenBalance";
 import { useBalances } from "../../hooks/useBalances";
+import { useContractInteractions } from "../../hooks/useContractInteractions";
 import { useTransferHistory } from "../../hooks/useTransferHistory";
 import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
-import { ContractInteraction } from "../../components/ContractInteraction";
 
 export function PageA() {
   const [inputAddress, setInputAddress] = useInputState("");
