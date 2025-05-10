@@ -1,8 +1,10 @@
+import { ContractInteraction } from "../../components/ContractInteraction";
 import { HistoricalTransfer } from "../../components/HistoricalTransfer";
 import { RiskScoreCard } from "../../components/RiskScore";
 import { TokenBalance } from "../../components/TokenBalance";
 import { useBalances } from "../../hooks/useBalances";
 import { useRiskScore } from "../../hooks/useRiskScore";
+import { useContractInteractions } from "../../hooks/useContractInteractions";
 import { useTransferHistory } from "../../hooks/useTransferHistory";
 import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
@@ -15,6 +17,8 @@ export function PageA() {
   const { data: transferData, isLoading: isLoadingTransfers } = useTransferHistory(walletAddress);
   const { data: balanceData, isLoading: isLoadingBalances } = useBalances(walletAddress);
   const { data: riskScoreData, isLoading: isloadingRisk } = useRiskScore(walletAddress);
+  const { data: interactionData, isLoading: isLoadingInteraction } =
+    useContractInteractions(walletAddress);
 
   const handleFetch = () => {
     setWalletAddress(inputAddress.trim());
@@ -29,7 +33,10 @@ export function PageA() {
             value={inputAddress}
             onChange={setInputAddress}
           />
-          <Button onClick={handleFetch} loading={isLoadingTransfers || isLoadingBalances}>
+          <Button
+            onClick={handleFetch}
+            loading={isLoadingTransfers || isLoadingBalances || isLoadingInteraction}
+          >
             Fetch Data
           </Button>
         </Group>
@@ -42,6 +49,10 @@ export function PageA() {
         ) : null}
         {isLoadingTransfers === false && transferData !== undefined ? (
           <HistoricalTransfer transfers={transferData.transfers} />
+        ) : null}
+
+        {isLoadingInteraction === false && interactionData !== undefined ? (
+          <ContractInteraction interaction={interactionData} />
         ) : null}
         {isloadingRisk === false && riskScoreData !== undefined ? (
           <RiskScoreCard riskScore={riskScoreData} />
