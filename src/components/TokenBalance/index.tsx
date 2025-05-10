@@ -6,34 +6,45 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useMemo, type JSX } from "react";
-interface TokenRow {
-  name: string;
-  symbol: string;
-  balance: string;
-}
+import { Balances } from "src/hooks/useBalances";
 
 export function TokenBalance(): JSX.Element {
-  const columnHelper = createColumnHelper<TokenRow>();
+  const columnHelper = createColumnHelper<Balances["tokenBalances"][0]>();
   const columns = useMemo(() => {
     return [
-      columnHelper.accessor("name", {
-        header: "Token Name",
-        cell: (info) => {
-          return info.getValue();
+      columnHelper.accessor(
+        (datum) => {
+          return datum.metadata.name;
         },
-      }),
-      columnHelper.accessor("symbol", {
-        header: "Symbol",
-        cell: (info) => {
-          return info.getValue();
+        {
+          header: "Token Name",
+          cell: (info) => {
+            return info.getValue();
+          },
         },
-      }),
-      columnHelper.accessor("balance", {
-        header: "Balance",
-        cell: (info) => {
-          return info.getValue();
+      ),
+      columnHelper.accessor(
+        (datum) => {
+          return datum.metadata.symbol;
         },
-      }),
+        {
+          header: "Symbol",
+          cell: (info) => {
+            return info.getValue();
+          },
+        },
+      ),
+      columnHelper.accessor(
+        (datum) => {
+          return datum.tokenBalance.tokenBalance;
+        },
+        {
+          header: "Balance",
+          cell: (info) => {
+            return info.getValue();
+          },
+        },
+      ),
     ];
   }, [columnHelper]);
 
