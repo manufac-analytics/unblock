@@ -9,7 +9,6 @@ import { useMemo, type JSX } from "react";
 import type { Balances } from "../../hooks/useBalances";
 
 export function TokenBalance(): JSX.Element {
-  
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<Balances["tokenBalances"][0]>();
     return [
