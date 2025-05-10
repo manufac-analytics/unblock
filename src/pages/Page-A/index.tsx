@@ -1,3 +1,4 @@
+import { RiskScoreCard } from "../../components/RiskScore";
 import { HistoricalTransfer } from "../../components/HistoricalTransfer";
 import { TokenBalance } from "../../components/TokenBalance";
 import { useBalances } from "../../hooks/useBalances";
@@ -5,6 +6,7 @@ import { useTransferHistory } from "../../hooks/useTransferHistory";
 import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
+import { useRiskScore } from "../../hooks/useRiskScore";
 
 export function PageA() {
   const [inputAddress, setInputAddress] = useInputState("");
@@ -12,6 +14,7 @@ export function PageA() {
 
   const { data: transferData, isLoading: isLoadingTransfers } = useTransferHistory(walletAddress);
   const { data: balanceData, isLoading: isLoadingBalances } = useBalances(walletAddress);
+  const { data: riskScoreData, isLoading: isloadingRisk } = useRiskScore(walletAddress);
 
   const handleFetch = () => {
     setWalletAddress(inputAddress.trim());
@@ -39,6 +42,9 @@ export function PageA() {
         ) : null}
         {isLoadingTransfers === false && transferData !== undefined ? (
           <HistoricalTransfer transfers={transferData.transfers} />
+        ) : null}
+        {isloadingRisk === false && riskScoreData !== undefined ? (
+          <RiskScoreCard riskScore={riskScoreData} />
         ) : null}
       </Stack>
     </Container>
