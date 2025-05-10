@@ -16,7 +16,7 @@ export function PageA() {
 
   const { data: transferData, isLoading: isLoadingTransfers } = useTransferHistory(walletAddress);
   const { data: balanceData, isLoading: isLoadingBalances } = useBalances(walletAddress);
-  const { data: riskScoreData, isLoading: isloadingRisk } = useRiskScore(walletAddress);
+  const { data: riskScoreData, isLoading: isLoadingRisk } = useRiskScore(walletAddress);
   const { data: interactionData, isLoading: isLoadingInteraction } =
     useContractInteractions(walletAddress);
 
