@@ -1,12 +1,15 @@
-import { Group, Stack, Table, Text, Pagination } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Text } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
   getCoreRowModel,
   createColumnHelper,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
-import { useMemo, useState, type JSX } from "react";
+import { useMemo, useState } from "react";
 import type { Balances } from "../../hooks/useBalances";
+import type { PaginationState } from "@tanstack/react-table";
+import type { JSX } from "react";
 
 export function TokenBalance({
   ethBalance,
@@ -15,14 +18,10 @@ export function TokenBalance({
   ethBalance: string;
   tokenBalances: Balances["tokenBalances"];
 }): JSX.Element {
-  const [activePage, setActivePage] = useState(1);
-  const rowsPerPage = 10;
-
-  // Paginated data
-  const paginatedData = useMemo(() => {
-    const startIndex = (activePage - 1) * rowsPerPage;
-    return tokenBalances.slice(startIndex, startIndex + rowsPerPage);
-  }, [activePage, tokenBalances]);
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
 
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<Balances["tokenBalances"][0]>();
@@ -73,11 +72,15 @@ export function TokenBalance({
       ),
     ];
   }, []);
-
   const table = useReactTable({
-    data: paginatedData,
+    data: tokenBalances,
     columns,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -105,7 +108,7 @@ export function TokenBalance({
           })}
         </Table.Thead>
         <Table.Tbody>
-          {table.getRowModel().rows.map((row) => {
+          {table.getPaginationRowModel().rows.map((row) => {
             return (
               <Table.Tr key={row.id}>
                 {row.getVisibleCells().map((cell) => {
@@ -120,11 +123,15 @@ export function TokenBalance({
           })}
         </Table.Tbody>
       </Table>
-      <Group justify="flex-end">
+      <Group justify="flex-end" mt="md">
         <Pagination
-          total={Math.ceil(tokenBalances.length / rowsPerPage)}
-          value={activePage}
-          onChange={setActivePage}
+          total={Math.ceil(tokenBalances.length / pagination.pageSize)}
+          value={pagination.pageIndex + 1}
+          onChange={(page) => {
+            setPagination((prev) => {
+              return { ...prev, pageIndex: page - 1 };
+            });
+          }}
         />
       </Group>
     </Stack>
