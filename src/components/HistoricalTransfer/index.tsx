@@ -5,8 +5,8 @@ import {
   getCoreRowModel,
   createColumnHelper,
 } from "@tanstack/react-table";
-import type { AssetTransfersResult } from "alchemy-sdk";
 import { useMemo } from "react";
+import type { AssetTransfersResult } from "alchemy-sdk";
 import type { JSX } from "react";
 
 export function HistoricalTransfer(): JSX.Element {
@@ -62,17 +62,21 @@ export function HistoricalTransfer(): JSX.Element {
     <Stack>
       <Table highlightOnHover withTableBorder withColumnBorders>
         <Table.Thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <Table.Tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <Table.Th key={header.id}>
-                  <Group gap="xs">
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                  </Group>
-                </Table.Th>
-              ))}
-            </Table.Tr>
-          ))}
+          {table.getHeaderGroups().map((headerGroup) => {
+            return (
+              <Table.Tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <Table.Th key={header.id}>
+                      <Group gap="xs">
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                      </Group>
+                    </Table.Th>
+                  );
+                })}
+              </Table.Tr>
+            );
+          })}
         </Table.Thead>
       </Table>
     </Stack>
