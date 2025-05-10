@@ -38,7 +38,7 @@ export function useBalances(address: string) {
             symbol: metadata.symbol,
             decimals: metadata.decimals,
           };
-        })
+        }),
       );
 
       return {
