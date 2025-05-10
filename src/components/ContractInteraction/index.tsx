@@ -81,7 +81,7 @@ export function ContractInteraction({
   });
 
   return (
-    <Stack>
+    <Stack w={1500}>
       <Table highlightOnHover withTableBorder withColumnBorders>
         <Table.Thead>
           {table.getHeaderGroups().map((headerGroup) => {

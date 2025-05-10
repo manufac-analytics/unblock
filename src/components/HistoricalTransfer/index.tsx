@@ -1,4 +1,4 @@
-import { Group, Pagination, Stack, Table } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Title, Text } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
@@ -75,7 +75,9 @@ export function HistoricalTransfer({
   });
 
   return (
-    <Stack>
+    <Stack w={1500}>
+      <Title order={3}>Transfer History</Title>
+
       <Table highlightOnHover withTableBorder withColumnBorders>
         <Table.Thead>
           {table.getHeaderGroups().map((headerGroup) => {
@@ -94,21 +96,27 @@ export function HistoricalTransfer({
             );
           })}
         </Table.Thead>
-        <Table.Tbody>
-          {table.getPaginationRowModel().rows.map((row) => {
-            return (
-              <Table.Tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <Table.Td key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Table.Td>
-                  );
-                })}
-              </Table.Tr>
-            );
-          })}
-        </Table.Tbody>
+        {transfers.length > 0 ? (
+          <Table.Tbody>
+            {table.getPaginationRowModel().rows.map((row) => {
+              return (
+                <Table.Tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <Table.Td key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Table.Td>
+                    );
+                  })}
+                </Table.Tr>
+              );
+            })}
+          </Table.Tbody>
+        ) : (
+          <Text mt="md" c="dimmed">
+            No data available
+          </Text>
+        )}
       </Table>
       <Group justify="flex-end" mt="md">
         <Pagination
