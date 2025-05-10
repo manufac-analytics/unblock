@@ -128,7 +128,9 @@ export function TokenBalance({
           total={Math.ceil(tokenBalances.length / pagination.pageSize)}
           value={pagination.pageIndex + 1}
           onChange={(page) => {
-            setPagination((prev) => ({ ...prev, pageIndex: page - 1 }));
+            setPagination((prev) => {
+              return { ...prev, pageIndex: page - 1 };
+            });
           }}
         />
       </Group>
