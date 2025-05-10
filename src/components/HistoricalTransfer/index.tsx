@@ -7,9 +7,9 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import type { PaginationState } from "@tanstack/react-table";
 import type { AssetTransfersResult } from "alchemy-sdk";
 import type { JSX } from "react";
-import type { PaginationState } from "@tanstack/react-table";
 
 export function HistoricalTransfer({
   transfers,
@@ -95,15 +95,19 @@ export function HistoricalTransfer({
           })}
         </Table.Thead>
         <Table.Tbody>
-          {table.getPaginationRowModel().rows.map((row) => (
-            <Table.Tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <Table.Td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Table.Td>
-              ))}
-            </Table.Tr>
-          ))}
+          {table.getPaginationRowModel().rows.map((row) => {
+            return (
+              <Table.Tr key={row.id}>
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <Table.Td key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </Table.Td>
+                  );
+                })}
+              </Table.Tr>
+            );
+          })}
         </Table.Tbody>
       </Table>
       <Group justify="flex-end" mt="md">
