@@ -7,8 +7,8 @@ import {
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import type { Balances } from "../../hooks/useBalances";
+import type { PaginationState } from "@tanstack/react-table";
 import type { JSX } from "react";
-import type {  PaginationState } from "@tanstack/react-table"
 
 export function TokenBalance({
   ethBalance,
@@ -17,7 +17,6 @@ export function TokenBalance({
   ethBalance: string;
   tokenBalances: Balances["tokenBalances"];
 }): JSX.Element {
-
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -125,12 +124,14 @@ export function TokenBalance({
         </Table.Tbody>
       </Table>
       <Group justify="flex-end">
-       <Pagination
+        <Pagination
           total={Math.ceil(tokenBalances.length / pagination.pageSize)}
           value={pagination.pageIndex + 1}
-          onChange={(page) =>
-            setPagination((prev) => ({ ...prev, pageIndex: page - 1 }))
-          }
+          onChange={(page) => {
+            setPagination((prev) => {
+              return { ...prev, pageIndex: page - 1 };
+            });
+          }}
         />
       </Group>
     </Stack>
