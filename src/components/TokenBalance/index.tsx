@@ -1,11 +1,11 @@
-import { Group, Stack, Table, Text } from "@mantine/core";
+import { Group, Stack, Table, Text, Pagination } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
   getCoreRowModel,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useMemo, type JSX } from "react";
+import { useMemo, useState, type JSX } from "react";
 import type { Balances } from "../../hooks/useBalances";
 
 export function TokenBalance({
@@ -15,6 +15,15 @@ export function TokenBalance({
   ethBalance: string;
   tokenBalances: Balances["tokenBalances"];
 }): JSX.Element {
+  const [activePage, setActivePage] = useState(1);
+  const rowsPerPage = 10;
+
+  // Paginated data
+  const paginatedData = useMemo(() => {
+    const startIndex = (activePage - 1) * rowsPerPage;
+    return tokenBalances.slice(startIndex, startIndex + rowsPerPage);
+  }, [activePage, tokenBalances]);
+
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<Balances["tokenBalances"][0]>();
     return [
@@ -66,13 +75,13 @@ export function TokenBalance({
   }, []);
 
   const table = useReactTable({
-    data: tokenBalances,
+    data: paginatedData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
-    <Stack>
+    <Stack w={1500}>
       <Group>
         <Text fw={700}>ETH Balance:</Text>
         <Text>{ethBalance}</Text>
@@ -111,6 +120,13 @@ export function TokenBalance({
           })}
         </Table.Tbody>
       </Table>
+      <Group justify="flex-end">
+        <Pagination
+          total={Math.ceil(tokenBalances.length / rowsPerPage)}
+          value={activePage}
+          onChange={setActivePage}
+        />
+      </Group>
     </Stack>
   );
 }
