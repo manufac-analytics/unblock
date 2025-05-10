@@ -54,7 +54,7 @@ export function PageA() {
         {isLoadingInteraction === false && interactionData !== undefined ? (
           <ContractInteraction interaction={interactionData} />
         ) : null}
-        {isloadingRisk === false && riskScoreData !== undefined ? (
+        {isLoadingRisk === false && riskScoreData !== undefined ? (
           <RiskScoreCard riskScore={riskScoreData} />
         ) : null}
       </Stack>
