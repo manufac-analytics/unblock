@@ -1,12 +1,12 @@
-import { RiskScoreCard } from "../../components/RiskScore";
 import { HistoricalTransfer } from "../../components/HistoricalTransfer";
+import { RiskScoreCard } from "../../components/RiskScore";
 import { TokenBalance } from "../../components/TokenBalance";
 import { useBalances } from "../../hooks/useBalances";
+import { useRiskScore } from "../../hooks/useRiskScore";
 import { useTransferHistory } from "../../hooks/useTransferHistory";
 import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
-import { useRiskScore } from "../../hooks/useRiskScore";
 
 export function PageA() {
   const [inputAddress, setInputAddress] = useInputState("");
