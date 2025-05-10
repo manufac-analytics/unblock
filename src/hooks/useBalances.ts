@@ -1,6 +1,6 @@
 import { AlchemyInstance } from "./utils";
 import { useQuery } from "@tanstack/react-query";
-import { TokenBalance, TokenMetadataResponse } from "alchemy-sdk";
+import type { TokenBalance, TokenMetadataResponse } from "alchemy-sdk";
 
 interface Balances {
   ethBalance: string;
