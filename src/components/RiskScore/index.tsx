@@ -9,7 +9,6 @@ export function RiskScoreCard({ riskScore }: { riskScore: RiskScore }): JSX.Elem
         <Text fw={500} size="lg">
           🚨 Risk Score
         </Text>
-
         <Text mt="md">Risk Level: {riskScore.riskLevel}</Text>
         <Text mt="md">Transactions: {riskScore.transactionCount}</Text>
         <Text mt="md">Contract Interactions:{riskScore.interactions.length}</Text>
