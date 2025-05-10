@@ -1,4 +1,4 @@
-import { Group, Pagination, Stack, Table } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Text, Title } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
@@ -82,6 +82,8 @@ export function ContractInteraction({
 
   return (
     <Stack w={1500}>
+      <Title order={3}>Contract Interaction</Title>
+
       <Table highlightOnHover withTableBorder withColumnBorders>
         <Table.Thead>
           {table.getHeaderGroups().map((headerGroup) => {
@@ -100,21 +102,27 @@ export function ContractInteraction({
             );
           })}
         </Table.Thead>
-        <Table.Tbody>
-          {table.getPaginationRowModel().rows.map((row) => {
-            return (
-              <Table.Tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <Table.Td key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Table.Td>
-                  );
-                })}
-              </Table.Tr>
-            );
-          })}
-        </Table.Tbody>
+        {interaction.length > 0 ? (
+          <Table.Tbody>
+            {table.getPaginationRowModel().rows.map((row) => {
+              return (
+                <Table.Tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <Table.Td key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Table.Td>
+                    );
+                  })}
+                </Table.Tr>
+              );
+            })}
+          </Table.Tbody>
+        ) : (
+          <Text mt="md" c="dimmed">
+            No data available
+          </Text>
+        )}
       </Table>
       <Group justify="flex-end" mt="md">
         <Pagination
