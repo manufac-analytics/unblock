@@ -17,8 +17,7 @@ export function useBalances(address: string) {
 
       // This calls the Alchemy API's getTokenBalances method which returns all ERC-20 token balances
       // Uses the Alchemy Enhanced API (not standard JSON-RPC)
-      const tokenBalancesResponse = await AlchemyInstance.core.getTokenBalances(address);
-      const tokenBalances = tokenBalancesResponse.tokenBalances;
+      const { tokenBalances } = await AlchemyInstance.core.getTokenBalances(address);
 
       // Fetch metadata for all tokens
       const tokenBalanceWithMetadata = await Promise.all(
