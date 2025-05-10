@@ -6,7 +6,7 @@ import type { AssetTransfersResult } from "alchemy-sdk";
 interface RiskScore {
   transactionCount: number;
   interactions: AssetTransfersResult[];
-  riskLevel: "Low" | "Medium" | "High";
+  riskLevel: "low" | "medium" | "high";
 }
 
 export function useRiskScore(address: string) {
@@ -17,18 +17,18 @@ export function useRiskScore(address: string) {
       const transactionCount = await AlchemyInstance.core.getTransactionCount(address);
 
       // Fetch contract interactions
-      const interactionsData = await AlchemyInstance.core.getAssetTransfers({
+      const { transfers: interactions } = await AlchemyInstance.core.getAssetTransfers({
         fromAddress: address,
         category: [AssetTransfersCategory.EXTERNAL],
       });
 
-      const interactions = interactionsData.transfers;
-
       // Determine risk level based on transaction count and interactions
-      let riskLevel: "Low" | "Medium" | "High" = "Low";
+      let riskLevel: RiskScore["riskLevel"] = "low";
       if (transactionCount < 5 || interactions.length < 5)
-        riskLevel = "High"; // Few transactions or interactions = High risk
-      else if (transactionCount < 20 || interactions.length < 20) riskLevel = "Medium"; // Moderate transactions or interactions = Medium risk
+        riskLevel = "high"; // Few transactions or interactions = High risk
+      else if (transactionCount < 20 || interactions.length < 20) {
+        riskLevel = "medium"; // Moderate transactions or interactions = Medium risk
+      }
 
       return {
         transactionCount,
