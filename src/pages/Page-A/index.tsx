@@ -1,6 +1,6 @@
 import { TokenBalance } from "../../components/TokenBalance";
 import { useBalances } from "../../hooks/useBalances";
-import { Input, Stack, Loader, Button, Container, Group } from "@mantine/core";
+import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useState } from "react";
 
 export function PageA() {
@@ -22,8 +22,8 @@ export function PageA() {
               setAddress(e.currentTarget.value);
             }}
           />
-          <Button onClick={handleCheckBalance} disabled={loading === true}>
-            {loading === true ? <Loader size="sm" /> : "Check Balance"}
+          <Button onClick={handleCheckBalance} disabled={loading === true} loading={loading}>
+            Check Balance
           </Button>
         </Group>
 
