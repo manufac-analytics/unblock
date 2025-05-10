@@ -6,7 +6,7 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useMemo, type JSX } from "react";
-import { Balances } from "src/hooks/useBalances";
+import type { Balances } from "../../hooks/useBalances";
 
 export function TokenBalance(): JSX.Element {
   const columnHelper = createColumnHelper<Balances["tokenBalances"][0]>();
