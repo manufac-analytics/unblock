@@ -1,6 +1,6 @@
 import { TokenBalance } from ".";
-import type { Meta, StoryObj } from "@storybook/react";
 import type { Balances } from "../../hooks/useBalances";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const dummyTokenBalances: Balances["tokenBalances"] = [
   {
@@ -41,5 +41,7 @@ export default {
 } as Meta<typeof TokenBalance>;
 
 export const Template: StoryObj<typeof TokenBalance> = {
-  render: (args) => <TokenBalance {...args} />,
+  render: (args) => {
+    return <TokenBalance {...args} />;
+  },
 };

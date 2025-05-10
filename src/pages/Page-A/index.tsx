@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Input, Stack, Loader, Button, Container, Group } from "@mantine/core";
-import { useBalances } from "../../hooks/useBalances";
 import { TokenBalance } from "../../components/TokenBalance";
+import { useBalances } from "../../hooks/useBalances";
+import { Input, Stack, Loader, Button, Container, Group } from "@mantine/core";
+import { useState } from "react";
 
 export function PageA() {
   const [address, setAddress] = useState("");
@@ -18,14 +18,16 @@ export function PageA() {
           <Input
             placeholder="Enter wallet address"
             value={address}
-            onChange={(e) => setAddress(e.currentTarget.value)}
+            onChange={(e) => {
+              setAddress(e.currentTarget.value);
+            }}
           />
           <Button onClick={handleCheckBalance} disabled={loading === true}>
             {loading === true ? <Loader size="sm" /> : "Check Balance"}
           </Button>
         </Group>
 
-        {loading === false && data !== undefined && data !== null && (
+        {loading === false && data !== undefined && (
           <TokenBalance ethBalance={data.ethBalance} tokenBalances={data.tokenBalances} />
         )}
       </Stack>
