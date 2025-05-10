@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AssetTransfersCategory } from "alchemy-sdk";
 import type { AssetTransfersResult } from "alchemy-sdk";
 
-interface RiskScore {
+export interface RiskScore {
   transactionCount: number;
   interactions: AssetTransfersResult[];
   riskLevel: "low" | "medium" | "high";
