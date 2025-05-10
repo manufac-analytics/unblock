@@ -1,17 +1,10 @@
 import { AlchemyInstance } from "./utils";
 import { useQuery } from "@tanstack/react-query";
-
-interface TokenWithMetadata {
-  contractAddress?: string | null;
-  tokenBalance?: string | null;
-  name?: string | null;
-  symbol?: string | null;
-  decimals?: number | null;
-}
+import { TokenBalance, TokenMetadataResponse } from "alchemy-sdk";
 
 interface Balances {
   ethBalance: string;
-  tokensWithMetadata: TokenWithMetadata[];
+  tokenBalances: { tokenBalance: TokenBalance; metadata: TokenMetadataResponse }[];
 }
 
 export function useBalances(address: string) {
@@ -28,22 +21,19 @@ export function useBalances(address: string) {
       const tokenBalances = tokenBalancesResponse.tokenBalances;
 
       // Fetch metadata for all tokens
-      const tokensWithMetadata = await Promise.all(
-        tokenBalances.map(async (token) => {
-          const metadata = await AlchemyInstance.core.getTokenMetadata(token.contractAddress);
+      const tokenBalanceWithMetadata = await Promise.all(
+        tokenBalances.map(async (tokenBalance) => {
+          const metadata = await AlchemyInstance.core.getTokenMetadata(tokenBalance.contractAddress);
           return {
-            contractAddress: token.contractAddress,
-            tokenBalance: token.tokenBalance,
-            name: metadata.name,
-            symbol: metadata.symbol,
-            decimals: metadata.decimals,
+            tokenBalance,
+            metadata,
           };
         }),
       );
 
       return {
         ethBalance: ethBalance.toString(),
-        tokensWithMetadata,
+        tokenBalances: tokenBalanceWithMetadata,
       };
     },
     enabled: typeof address === "string" && address.trim().length > 0,
