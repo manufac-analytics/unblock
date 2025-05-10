@@ -1,7 +1,7 @@
 import { AlchemyInstance } from "./utils";
 import { useQuery } from "@tanstack/react-query";
 import { AssetTransfersCategory } from "alchemy-sdk";
-import type { AssetTransfersResult } from "alchemy-sdk";
+import type { AssetTransfersResponse } from "alchemy-sdk";
 
 export function useTransferHistory(
   address: string,
@@ -14,15 +14,15 @@ export function useTransferHistory(
     AssetTransfersCategory.SPECIALNFT,
   ],
 ) {
-  return useQuery<AssetTransfersResult[]>({
+  return useQuery<AssetTransfersResponse>({
     queryKey: ["transferHistory", address, categories],
-    queryFn: async (): Promise<AssetTransfersResult[]> => {
+    queryFn: async (): Promise<AssetTransfersResponse> => {
       const transfersData = await AlchemyInstance.core.getAssetTransfers({
         fromAddress: address,
         category: categories,
       });
 
-      return transfersData.transfers;
+      return transfersData;
     },
     enabled: typeof address === "string" && address.trim().length > 0,
     refetchOnWindowFocus: false,
