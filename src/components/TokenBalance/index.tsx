@@ -5,8 +5,9 @@ import {
   getCoreRowModel,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useMemo, useState, type JSX } from "react";
+import { useMemo, useState } from "react";
 import type { Balances } from "../../hooks/useBalances";
+import type { JSX } from "react";
 
 export function TokenBalance({
   ethBalance,
