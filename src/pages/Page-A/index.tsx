@@ -22,7 +22,7 @@ export function PageA() {
               setAddress(e.currentTarget.value);
             }}
           />
-          <Button onClick={handleCheckBalance} disabled={loading === true} loading={loading}>
+          <Button onClick={handleCheckBalance} loading={loading}>
             Check Balance
           </Button>
         </Group>
