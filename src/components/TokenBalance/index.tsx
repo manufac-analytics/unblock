@@ -85,65 +85,64 @@ export function TokenBalance({
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder w="100%">
-    <Stack>
-      <Title order={3}>Token Balances</Title>
-      <Group>
-        <Text fw={700}>ETH Balance:</Text>
-        <Text>{ethBalance}</Text>
-      </Group>
-      <Table highlightOnHover withTableBorder withColumnBorders>
-        <Table.Thead>
-          {table.getHeaderGroups().map((headerGroup) => {
-            return (
-              <Table.Tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <Table.Th key={header.id}>
-                      <Group gap="xs">
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                      </Group>
-                    </Table.Th>
-                  );
-                })}
-              </Table.Tr>
-            );
-          })}
-        </Table.Thead>
-        {tokenBalances.length > 0 ? (
-          <Table.Tbody>
-            {table.getPaginationRowModel().rows.map((row) => {
+      <Stack>
+        <Title order={3}>Token Balances</Title>
+        <Group>
+          <Text fw={700}>ETH Balance:</Text>
+          <Text>{ethBalance}</Text>
+        </Group>
+        <Table highlightOnHover withTableBorder withColumnBorders>
+          <Table.Thead>
+            {table.getHeaderGroups().map((headerGroup) => {
               return (
-                <Table.Tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => {
+                <Table.Tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
                     return (
-                      <Table.Td key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </Table.Td>
+                      <Table.Th key={header.id}>
+                        <Group gap="xs">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        </Group>
+                      </Table.Th>
                     );
                   })}
                 </Table.Tr>
               );
             })}
-          </Table.Tbody>
-        ) : (
-          <Text mt="md" c="dimmed">
-            No data available
-          </Text>
-        )}
-      </Table>
-      <Group justify="flex-end" mt="md">
-        <Pagination
-          total={Math.ceil(tokenBalances.length / pagination.pageSize)}
-          value={pagination.pageIndex + 1}
-          onChange={(page) => {
-            setPagination((prev) => {
-              return { ...prev, pageIndex: page - 1 };
-            });
-          }}
-        />
-      </Group>
-    </Stack>
+          </Table.Thead>
+          {tokenBalances.length > 0 ? (
+            <Table.Tbody>
+              {table.getPaginationRowModel().rows.map((row) => {
+                return (
+                  <Table.Tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <Table.Td key={cell.id}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </Table.Td>
+                      );
+                    })}
+                  </Table.Tr>
+                );
+              })}
+            </Table.Tbody>
+          ) : (
+            <Text mt="md" c="dimmed">
+              No data available
+            </Text>
+          )}
+        </Table>
+        <Group justify="flex-end" mt="md">
+          <Pagination
+            total={Math.ceil(tokenBalances.length / pagination.pageSize)}
+            value={pagination.pageIndex + 1}
+            onChange={(page) => {
+              setPagination((prev) => {
+                return { ...prev, pageIndex: page - 1 };
+              });
+            }}
+          />
+        </Group>
+      </Stack>
     </Card>
-
   );
 }
