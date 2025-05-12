@@ -1,8 +1,22 @@
-# PWA | ReactJS | Starter App
+## Introduction
 
-A Template Repository for creating ReactJS based PWAs.
+It is a dashboard-style web app that interacts with the Alchemy API to fetch and display blockchain-related data. The app allows users to:
 
-It has support for:
+- Enter a wallet address and fetch associated data.
+- View the wallet's ETH balance and token balances in a paginated table.
+- Display historical transfer data.
+- Show contract interactions.
+- Calculate and display a risk score based on transaction count and interactions.
+
+The app uses modern libraries and tools such as:
+
+- TypeScript for type safety.
+- Mantine for UI components and theming.
+- React Query for data fetching and caching.
+- React Router for routing.
+- TanStack Table for table management and pagination.
+
+It also has support for:
 
 - TypeScript ✅
 - Webpack Bundling and Hot Reloading ✅
@@ -15,5 +29,3 @@ It has support for:
 - Pre-commit hooks ✅
 - `shx` for OS agnostic CLI ✅
 - Unit testing via Jest and `ts-jest`.
-
-This template repository is to be used for creating any new Manufac's ReactJS based project.
