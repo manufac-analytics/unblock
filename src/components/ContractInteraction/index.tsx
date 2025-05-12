@@ -1,4 +1,4 @@
-import { Group, Pagination, Stack, Table, Text, Title } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Text, Title, Card } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
@@ -81,7 +81,8 @@ export function ContractInteraction({
   });
 
   return (
-    <Stack w={1500}>
+    <Card shadow="sm" padding="lg" radius="md" withBorder w="100%">
+    <Stack>
       <Title order={3}>Contract Interaction</Title>
 
       <Table highlightOnHover withTableBorder withColumnBorders>
@@ -136,5 +137,7 @@ export function ContractInteraction({
         />
       </Group>
     </Stack>
+    </Card>
+
   );
 }

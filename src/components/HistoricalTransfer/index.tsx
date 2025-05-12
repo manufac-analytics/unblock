@@ -1,4 +1,4 @@
-import { Group, Pagination, Stack, Table, Title, Text } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Title, Text, Card } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
@@ -75,7 +75,8 @@ export function HistoricalTransfer({
   });
 
   return (
-    <Stack w={1500}>
+    <Card shadow="sm" padding="lg" radius="md" withBorder w="100%">
+    <Stack>
       <Title order={3}>Transfer History</Title>
 
       <Table highlightOnHover withTableBorder withColumnBorders>
@@ -130,5 +131,7 @@ export function HistoricalTransfer({
         />
       </Group>
     </Stack>
+    </Card>
+
   );
 }

@@ -4,7 +4,7 @@ import type { JSX } from "react";
 
 export function RiskScoreCard({ riskScore }: { riskScore: RiskScore }): JSX.Element {
   return (
-    <Stack w={1500}>
+    <Stack>
       <Card shadow="sm" padding="lg" radius="md" withBorder w={400}>
         <Text fw={500} size="lg">
           🚨 Risk Score

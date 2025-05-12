@@ -1,4 +1,4 @@
-import { Group, Pagination, Stack, Table, Text, Title } from "@mantine/core";
+import { Group, Pagination, Stack, Table, Text, Title, Card } from "@mantine/core";
 import {
   useReactTable,
   flexRender,
@@ -84,9 +84,9 @@ export function TokenBalance({
   });
 
   return (
-    <Stack w={1500}>
+    <Card shadow="sm" padding="lg" radius="md" withBorder w="100%">
+    <Stack>
       <Title order={3}>Token Balances</Title>
-
       <Group>
         <Text fw={700}>ETH Balance:</Text>
         <Text>{ethBalance}</Text>
@@ -143,5 +143,7 @@ export function TokenBalance({
         />
       </Group>
     </Stack>
+    </Card>
+
   );
 }
