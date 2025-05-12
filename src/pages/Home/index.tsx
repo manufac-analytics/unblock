@@ -6,13 +6,13 @@ import { useBalances } from "../../hooks/useBalances";
 import { useContractInteractions } from "../../hooks/useContractInteractions";
 import { useRiskScore } from "../../hooks/useRiskScore";
 import { useTransferHistory } from "../../hooks/useTransferHistory";
-import { Input, Stack, Button, Container, Group } from "@mantine/core";
+import { Input, Stack, Button, Container, Group, Title } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
 
 export function Home() {
   const [inputAddress, setInputAddress] = useInputState("");
-  const [walletAddress, setWalletAddress] = useState("");
+  const [walletAddress, setWalletAddress] = useState("0x8a90cab2b38dba80c64b7734e58ee1db38b8992e");
 
   const { data: transferData, isLoading: isLoadingTransfers } = useTransferHistory(walletAddress);
   const { data: balanceData, isLoading: isLoadingBalances } = useBalances(walletAddress);
@@ -40,7 +40,7 @@ export function Home() {
             Fetch Data
           </Button>
         </Group>
-
+        <Title order={3}>Current Wallet Addess: {walletAddress}</Title>
         {isLoadingBalances === false && balanceData !== undefined ? (
           <TokenBalance
             ethBalance={balanceData.ethBalance}
