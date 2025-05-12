@@ -8,14 +8,6 @@ It is a dashboard-style web app that interacts with the Alchemy API to fetch and
 - Show contract interactions.
 - Calculate and display a risk score based on transaction count and interactions.
 
-The app uses modern libraries and tools such as:
-
-- TypeScript for type safety.
-- Mantine for UI components and theming.
-- React Query for data fetching and caching.
-- React Router for routing.
-- TanStack Table for table management and pagination.
-
 It also has support for:
 
 - TypeScript ✅
@@ -28,4 +20,6 @@ It also has support for:
 - PWA/Service Workers ✅
 - Pre-commit hooks ✅
 - `shx` for OS agnostic CLI ✅
-- Unit testing via Jest and `ts-jest`.
+- Unit testing via Jest and `ts-jest`. ✅
+- React Query for data fetching and caching. ✅
+- TanStack Table for table management and pagination. ✅
