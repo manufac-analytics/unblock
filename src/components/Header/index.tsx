@@ -22,7 +22,7 @@ export function Header({ colorScheme, onToggleColorScheme }: HeaderProps): React
   return (
     <AppShell.Header p="xs">
       <Group justify="space-between" align="center">
-        <Title order={5}>Header</Title>
+        <Title order={5}>Alchemy API Dashboard</Title>
         <Group wrap="nowrap">
           {NavLinks.map(({ path, label }) => {
             return (
