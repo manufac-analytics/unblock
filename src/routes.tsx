@@ -1,7 +1,6 @@
 import { App } from "./app";
 import { ErrorPage } from "./pages/ErrorPage";
-import { PageA } from "./pages/Page-A";
-import { PageB } from "./pages/Page-B";
+import { Home } from "./pages/Home";
 import { createBrowserRouter } from "react-router";
 
 export const Routers = createBrowserRouter([
@@ -11,12 +10,8 @@ export const Routers = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "page-a",
-        element: <PageA />,
-      },
-      {
-        path: "page-b",
-        element: <PageB />,
+        path: "/",
+        element: <Home />,
       },
     ],
   },

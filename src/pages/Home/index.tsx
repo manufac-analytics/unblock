@@ -10,7 +10,7 @@ import { Input, Stack, Button, Container, Group } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { useState } from "react";
 
-export function PageA() {
+export function Home() {
   const [inputAddress, setInputAddress] = useInputState("");
   const [walletAddress, setWalletAddress] = useState("");
 
